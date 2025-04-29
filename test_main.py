@@ -11,8 +11,11 @@ def sample_log_data():
     }
 
 def test_parse_log_line():
-    line = '2023-01-01 12:00:00 django.request : DEBUG "GET /api/v1/test/"'
-    assert LogAnalyzer.parse_log_line(line) == ("/api/v1/test/", "DEBUG")
+    #line = '2023-01-01 12:00:00 django.request : DEBUG "GET /api/v1/test/"'
+    #assert LogAnalyzer.parse_log_line(line) == ("/api/v1/test/", "DEBUG")
+
+    line = "2025-03-28 12:44:46,000 INFO django.request: GET /api/v1/reviews/ 204 OK [192.168.1.59]"
+    assert LogAnalyzer.parse_log_line(line) == ("/api/v1/reviews/", "INFO")
     
     line = "not a request log"
     assert LogAnalyzer.parse_log_line(line) is None

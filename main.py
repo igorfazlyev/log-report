@@ -18,8 +18,11 @@ class LogAnalyzer:
     #LOG_PATTERN = re.compile(
     #    r'^.*django\.request\s+:\s+(?P<level>\w+)\s+.*"(?P<method>\w+)\s+(?P<handler>[^ ]+)'
     #)
+    #LOG_PATTERN = re.compile(
+    #    r'^.*django\.request\s+:\s+(?P<level>\w+)\s+.*"(?P<method>\w+)\s+(?P<handler>[^"\s]+)'
+    #)
     LOG_PATTERN = re.compile(
-        r'^.*django\.request\s+:\s+(?P<level>\w+)\s+.*"(?P<method>\w+)\s+(?P<handler>[^"\s]+)'
+        r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}\s+(?P<level>\w+)\s+django\.request:\s+(?P<method>\w+)\s+(?P<handler>[^\s]+)'
     )
 
     @classmethod
