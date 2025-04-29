@@ -27,14 +27,7 @@ class LogAnalyzer:
 
     @classmethod
     def parse_log_line(cls, line: str) -> Optional[Tuple[str, str]]:
-        """Parse a single log line and extract handler and log level if it's a request log.
-        
-        Args:
-            line: A line from the log file
-            
-        Returns:
-            Tuple of (handler, log_level) if it's a request log, None otherwise
-        """
+       
         match = cls.LOG_PATTERN.match(line)
         if match:
             return match.group("handler"), match.group("level")
@@ -42,14 +35,7 @@ class LogAnalyzer:
 
     @classmethod
     def process_log_file(cls, file_path: str) -> LogStats:
-        """Process a single log file and return statistics.
-        
-        Args:
-            file_path: Path to the log file
-            
-        Returns:
-            Dictionary with handler statistics
-        """
+       
         stats: DefaultDict[str, DefaultDict[str, int]] = defaultdict(
             lambda: defaultdict(int)
         )
@@ -90,14 +76,7 @@ class HandlersReport:
 
     @classmethod
     def generate(cls, data: ReportData) -> str:
-        """Generate handlers report.
-        
-        Args:
-            data: Processed log data
-            
-        Returns:
-            Formatted report as string
-        """
+       
         # Sort handlers alphabetically
         sorted_handlers = sorted(data.keys())
         
@@ -136,7 +115,6 @@ class HandlersReport:
 
 
 class ReportFactory:
-    """Factory class for creating reports."""
     
     REPORT_TYPES = {
         "handlers": HandlersReport,
@@ -144,18 +122,7 @@ class ReportFactory:
     
     @classmethod
     def create_report(cls, report_type: str, data: ReportData) -> str:
-        """Create a report of specified type.
-        
-        Args:
-            report_type: Type of report to create
-            data: Processed log data
-            
-        Returns:
-            Formatted report as string
-            
-        Raises:
-            ValueError: If report type is unknown
-        """
+       
         if report_type not in cls.REPORT_TYPES:
             raise ValueError(f"Unknown report type: {report_type}")
         
@@ -187,14 +154,7 @@ class LogAnalyzerApp:
         return parser
     
     def _validate_files(self, file_paths: List[str]) -> None:
-        """Validate that log files exist.
         
-        Args:
-            file_paths: List of file paths to validate
-            
-        Raises:
-            FileNotFoundError: If any file doesn't exist
-        """
         for file_path in file_paths:
             if not os.path.exists(file_path):
                 raise FileNotFoundError(f"File not found: {file_path}")
